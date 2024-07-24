@@ -40,10 +40,10 @@
 
                 <nav class="nav">
                     <ul class="nav__list">
-                        <li class="nav__list__item"><a class="active" href="#">Inicio</a></li>
-                        <li class="nav__list__item"><a href="#">Horario</a></li>
-                        <li class="nav__list__item"><a href="#">Calendario</a></li>
-                        <li class="nav__list__item"><a href="#">Módulos</a></li>
+                        <li class="nav__list__item"><a class="active" href="#home">Inicio</a></li>
+                        <li class="nav__list__item"><a href="#schedule">Horario</a></li>
+                        <li class="nav__list__item"><a href="#calendar">Calendario</a></li>
+                        <li class="nav__list__item"><a href="#module-list">Módulos</a></li>
                         <li class="nav__list__item"><a href="#">Noticias</a></li>
                         <li class="nav__list__item"><a href="#">Contacto</a></li>
                     </ul>
@@ -54,7 +54,7 @@
         </div>
     </header>
 
-    <div class="intro">
+    <div class="intro" id="home">
         <div class="container">
             <div class="intro__inner">
                 <h2 class="intro__suptitle">Todo a Mano</h2>
@@ -63,9 +63,10 @@
                 <a class="btn" href="#">Aprende Más<i class='bx bxs-right-arrow'></i></a>
             </div>
         </div>
-    </div>
 
-    <section class="section section--light">
+    </div> <!-- /.intro -->
+
+    <section class="section section--light" id="schedule">
         <div class="container">
             
             <header class="section__header">
@@ -143,7 +144,7 @@
         </div>     
     </section>
 
-    <section class="section section--dark">
+    <section class="section section--dark" id="calendar">
         <div class="container">
             <header class="section__header">
                 <h2 class="section__title">Calendario de Clases</h2>
@@ -156,7 +157,7 @@
         </div>
     </section>
 
-    <section class="section section--light">
+    <section class="section section--light" id="module-list">
         <div class="container">
             <header class="section__header">
                 <h2 class="section__title">Módulos</h2>
@@ -166,7 +167,7 @@
 
             <div class="module-list">
                 <div class="module-list__item">
-                    <a class="module-list__img" href="">
+                    <a class="module-list__img" href="pages/modulo1.html">
                         <img src="assets/images/modules/programacion.webp" alt="Programación Multimedia y Dispositivos Móviles">
                         <div class="module-list__text">Programación</div>
                     </a>
@@ -174,40 +175,70 @@
 
                 <div class="module-list__item">
                     <a class="module-list__img" href="#">
-                        <img src="assets/images/modules/programacion.webp" alt="Programación Multimedia y Dispositivos Móviles">
-                        <div class="module-list__text">Programación</div>
+                        <img src="assets/images/modules/fol.jpeg" alt="Programación Multimedia y Dispositivos Móviles">
+                        <div class="module-list__text">Formación y Orientación Laboral</div>
                     </a>
                 </div>
 
                 <div class="module-list__item">
                     <a class="module-list__img" href="#">
-                        <img src="assets/images/modules/programacion.webp" alt="Programación Multimedia y Dispositivos Móviles">
-                        <div class="module-list__text">Programación</div>
+                        <img src="assets/images/modules/db.jpg" alt="Programación Multimedia y Dispositivos Móviles">
+                        <div class="module-list__text">Bases de Datos</div>
                     </a>
                 </div>
 
                 <div class="module-list__item">
                     <a class="module-list__img" href="#">
-                        <img src="assets/images/modules/programacion.webp" alt="Programación Multimedia y Dispositivos Móviles">
-                        <div class="module-list__text">Programación</div>
+                        <img src="assets/images/modules/ide.jpeg" alt="Programación Multimedia y Dispositivos Móviles">
+                        <div class="module-list__text">Entornos de Desarrollo</div>
                     </a>
                 </div>
 
                 <div class="module-list__item">
                     <a class="module-list__img" href="#">
-                        <img src="assets/images/modules/programacion.webp" alt="Programación Multimedia y Dispositivos Móviles">
-                        <div class="module-list__text">Programación</div>
+                        <img src="assets/images/modules/web.avif" alt="Programación Multimedia y Dispositivos Móviles">
+                        <div class="module-list__text">Lenguajes de Marcas y Sistemas de Gestión de Información</div>
                     </a>
                 </div>
 
                 <div class="module-list__item">
                     <a class="module-list__img" href="#">
-                        <img src="assets/images/modules/programacion.webp" alt="Programación Multimedia y Dispositivos Móviles">
-                        <div class="module-list__text">Programación</div>
+                        <img src="assets/images/modules/hardware.jpg" alt="Programación Multimedia y Dispositivos Móviles">
+                        <div class="module-list__text">Sistemas Informáticos</div>
                     </a>
                 </div>
 
+            </div>  <!-- /.container -->
     </section>
+
+    <div class="statistics">
+        <div class="container">
+
+            <div class="stat-list">
+                <div class="stat-list__item">
+                    <div class="stat-list__number">150</div>
+                    <div class="stat-list__text">Horas Completadas</div>
+                </div>
+                <div class="stat-list__item">
+                    <div class="stat-list__number">35</div>
+                    <div class="stat-list__text">Guías y Tutoriales Disponibles</div>
+                </div>
+                <div class="stat-list__item">
+                    <div class="stat-list__number">120</div>
+                    <div class="stat-list__text">Recursos Descargados</div>
+                </div>
+                <div class="stat-list__item">
+                    <div class="stat-list__number">20</div>
+                    <div class="stat-list__text">Temas de Estudio Cubiertos</div>
+                </div>
+                <div class="stat-list__item">
+                    <div class="stat-list__number">10</div>
+                    <div class="stat-list__text">Proyectos de Clase Compartidos</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 </body>
 </html>
