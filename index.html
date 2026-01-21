@@ -1,99 +1,724 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Geopolitical analysis of the Ukraine-Russia conflict, focusing on the risks of NATO's involvement and the potential consequences of Western escalation.">
-    <meta name="author" content="Zuyomi">
-    <title>Geopolitical Analysis: NATO's Escalation in Ukraine</title>
+    <title>Mi Timeline 2026-2033</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        header {
-            background: #6c757d;
+            background: #0a0e1a;
             color: white;
-            padding: 1rem 0;
-            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.05), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.05), transparent 50%);
         }
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
+
+        .timeline-container {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow-x: auto;
+            overflow-y: hidden;
+            cursor: grab;
+            scroll-behavior: smooth;
+            padding: 0 10vw;
         }
-        header p {
-            font-size: 1.2rem;
+
+        .timeline-container:active { cursor: grabbing; }
+        
+        .timeline-container::-webkit-scrollbar {
+            height: 8px;
         }
-        main {
-            padding: 2rem;
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        section {
-            margin-bottom: 2rem;
-        }
-        section h2 {
-            color: #6c757d;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            margin: 1rem 0;
+        
+        .timeline-container::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
             border-radius: 10px;
         }
-        footer {
+        
+        .timeline-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, #facc15, #fb923c);
+            border-radius: 10px;
+        }
+
+        .timeline-track {
+            position: relative;
+            display: flex;
+            align-items: center;
+            min-width: max-content;
+            padding: 50px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                #4ade80 0%, 
+                #facc15 30%, 
+                #8b5cf6 60%, 
+                #ec4899 100%);
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.3);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 80px;
+            z-index: 1;
+        }
+
+        .timeline-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 4px solid;
+            background: #0a0e1a;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.5);
+            box-shadow: 0 0 30px currentColor;
+        }
+
+        .dot-active { border-color: #4ade80; animation: pulse 2s infinite; }
+        .dot-studies { border-color: #f59e0b; }
+        .dot-work { border-color: #8b5cf6; }
+        .dot-vacation { border-color: #ec4899; }
+        .dot-rest { border-color: #06b6d4; }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+            50% { box-shadow: 0 0 0 15px rgba(74, 222, 128, 0); }
+        }
+
+        .timeline-card {
+            position: absolute;
+            width: 280px;
+            min-height: 120px;
+            perspective: 1000px;
+            pointer-events: auto;
+            transition: all 0.4s ease;
+        }
+
+        .timeline-card:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            min-height: 120px;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            pointer-events: none;
+        }
+
+        .timeline-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            min-height: 120px;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border: 2px solid;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            pointer-events: auto;
+        }
+
+        .card-front {
+            justify-content: center;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            justify-content: flex-start;
+        }
+
+        .card-top {
+            bottom: 60px;
+        }
+
+        .card-bottom {
+            top: 60px;
+        }
+
+        .timeline-card:hover {
+            transform: scale(1.05);
+        }
+
+        .card-front .card-title {
+            font-size: 1.1rem;
             text-align: center;
-            padding: 1rem 0;
-            background: #6c757d;
-            color: white;
-            margin-top: 2rem;
+        }
+
+        .card-back .card-title {
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .card-active { border-color: #4ade80; }
+        .card-studies { border-color: #f59e0b; }
+        .card-work { border-color: #8b5cf6; }
+        .card-vacation { border-color: #ec4899; }
+        .card-rest { border-color: #06b6d4; }
+
+        .card-date {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+            opacity: 0.7;
+        }
+
+        .card-title {
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .card-desc {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .card-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-active { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+        .badge-studies { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .badge-work { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; }
+        .badge-vacation { background: rgba(236, 72, 153, 0.2); color: #ec4899; }
+        .badge-rest { background: rgba(6, 182, 212, 0.2); color: #06b6d4; }
+
+        .year-marker {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 100px;
+        }
+
+        .year-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #facc15, #fb923c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.05em;
+            opacity: 0.4;
+            margin-bottom: 20px;
+        }
+
+        .year-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #facc15, #fb923c);
+            opacity: 0.5;
+            z-index: 2;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: rgba(10, 14, 26, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-align: center;
+            background: linear-gradient(135deg, #facc15, #fb923c, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.05em;
+        }
+
+        .scroll-hint {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            animation: bounce 2s infinite;
+            z-index: 50;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .vacation-details {
+            margin-top: 8px;
+            padding: 10px;
+            background: rgba(236, 72, 153, 0.1);
+            border-radius: 8px;
+            font-size: 0.7rem;
+        }
+
+        .vacation-details ul {
+            list-style: none;
+            margin-top: 4px;
+        }
+
+        .vacation-details li {
+            padding: 2px 0;
+            color: #cbd5e1;
+            font-size: 0.7rem;
+        }
+
+        .vacation-details li:before {
+            content: "→ ";
+            color: #ec4899;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-card {
+                width: 280px;
+                padding: 16px;
+            }
+            .card-title {
+                font-size: 1.1rem;
+            }
+            .year-marker {
+                font-size: 2rem;
+                top: -80px;
+            }
+            .timeline-item {
+                margin: 0 60px;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Geopolitical Analysis: NATO's Escalation in Ukraine</h1>
-        <p>Examining the risks of Western involvement in the Ukraine-Russia conflict</p>
-    </header>
-    <main>
-        <section>
-            <h2>The Risks of NATO's Direct Involvement</h2>
-            <img src="https://kyiv24.news/wp-content/uploads/2024/11/photo_2024-11-20_12-02-09.jpg" alt="Conflict illustration showing NATO's involvement in Ukraine">
-            <p>Recent actions by the United States and NATO have significantly escalated the Ukraine-Russia conflict. By enabling Ukraine to launch long-range missile strikes against Russian territory, the West has crossed a dangerous threshold. These missile systems, requiring satellite guidance and NATO-provided codes, represent not just Ukrainian aggression but direct involvement by Western powers.</p>
-        </section>
 
-        <section>
-            <h2>The Provocative Use of ATACMS Missiles</h2>
-            <p>The deployment of U.S.-supplied ATACMS missiles, capable of striking deep within Russia, is a reckless move. This decision undermines previous Western commitments to avoid direct confrontation with Moscow. By facilitating these strikes, the U.S. and NATO have effectively entered the conflict as active participants, raising legitimate concerns from Russia about their aggressive intentions.</p>
-            <p>This is no longer a proxy war; it is an escalation that risks spiraling out of control, with catastrophic consequences for global security.</p>
-        </section>
+    <div class="header">
+        <h1>MI TIMELINE 2026-2033</h1>
+    </div>
 
-        <section>
-            <h2>Russia's Response: A New Nuclear Doctrine</h2>
-            <p>In response to what it perceives as a direct attack by NATO, Russia has revised its nuclear doctrine. The new policy expands the conditions under which nuclear weapons could be used, including in scenarios where conventional attacks pose a significant threat to Russian sovereignty.</p>
-            <p>While this shift has been labeled as aggressive, it is a predictable reaction to the growing existential threats Russia faces. The Kremlin's stance reflects its determination to defend its territory and interests against what it sees as an increasingly hostile Western bloc.</p>
-        </section>
+    <div class="timeline-container" id="timeline">
+        <div class="timeline-track">
+            <div class="timeline-line"></div>
 
-        <section>
-            <h2>Western Hypocrisy and the Danger of Escalation</h2>
-            <p>The West's actions reveal a double standard. While condemning Russia's responses, NATO has taken steps that blatantly violate its stated objective of maintaining global stability. The decision to provide Ukraine with weapons that require NATO personnel for effective deployment directly involves the alliance in acts of war against Russia.</p>
-            <p>Such provocations not only escalate the conflict but also undermine diplomatic efforts to resolve the crisis. This reckless behavior endangers not just Ukraine and Russia but the entire world, as the threat of nuclear confrontation looms ever larger.</p>
-        </section>
+            <!-- 2026 MARKER -->
+            <div class="year-marker">
+                <div class="year-number">2026</div>
+                <div class="year-dot"></div>
+            </div>
 
-        <section>
-            <h2>A Call for Restraint and Diplomacy</h2>
-            <p>The current trajectory of this conflict is deeply concerning. While it is essential to support sovereignty and security for all nations, it must not come at the cost of global destruction. NATO and its allies must recognize the limits of their involvement and prioritize de-escalation over confrontation.</p>
-            <p>There is still time to step back from the brink, but this requires courage and a willingness to engage in meaningful dialogue. The alternative is unthinkable—a world consumed by conflict on an unprecedented scale.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Zuyomi. All Rights Reserved.</p>
-    </footer>
+            <!-- Evento 1: Terminar 2do Trimestre (ACTIVO) -->
+            <div class="timeline-item">
+                <div class="timeline-card card-top card-active">
+                    <div class="card-inner">
+                        <div class="card-front card-active">
+                            <div class="card-title">2º Trimestre</div>
+                            <div class="card-date" style="color: #4ade80; margin-top: 8px;">20 Feb 2026</div>
+                        </div>
+                        <div class="card-back card-active">
+                            <div class="card-badge badge-active">● ACTIVO AHORA</div>
+                            <div class="card-desc">Finalizar todas las asignaturas del segundo trimestre del curso académico actual. Entregar trabajos finales, completar proyectos y aprobar los exámenes de evaluación.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot dot-active"></div>
+            </div>
+
+            <!-- Evento 2: Prácticas COVAP -->
+            <div class="timeline-item">
+                <div class="timeline-card card-bottom card-studies">
+                    <div class="card-inner">
+                        <div class="card-front card-studies">
+                            <div class="card-title">Prácticas COVAP</div>
+                            <div class="card-date" style="color: #f59e0b; margin-top: 8px;">23 Feb - 2 Jun</div>
+                        </div>
+                        <div class="card-back card-studies">
+                            <div class="card-badge badge-studies">📚 PRÁCTICAS</div>
+                            <div class="card-desc">Periodo de prácticas profesionales en COVAP durante 3 meses completos. Aplicar conocimientos en un entorno laboral real, aprender procesos empresariales y ganar experiencia práctica en el sector.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot dot-studies"></div>
+            </div>
+
+            <!-- Evento 3: Recuperaciones -->
+            <div class="timeline-item">
+                <div class="timeline-card card-top card-rest">
+                    <div class="card-inner">
+                        <div class="card-front card-rest">
+                            <div class="card-title">Recuperaciones</div>
+                            <div class="card-date" style="color: #06b6d4; margin-top: 8px;">Hasta 21 Jun</div>
+                        </div>
+                        <div class="card-back card-rest">
+                            <div class="card-badge badge-rest">📖 ACADÉMICO</div>
+                            <div class="card-desc">Recuperar todos los exámenes pendientes y asignaturas que hayan quedado suspendidas durante el curso. Dedicar tiempo al estudio intensivo para aprobar todo lo necesario antes del verano.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot dot-rest"></div>
+            </div>
+
+            <!-- Evento 3.5: Empezar Gym -->
+            <div class="timeline-item">
+                <div class="timeline-card card-bottom card-rest">
+                    <div class="card-inner">
+                        <div class="card-front card-rest">
+                            <div class="card-title">Empezar Gym 💪</div>
+                            <div class="card-date" style="color: #06b6d4; margin-top: 8px;">Julio 2026</div>
+                        </div>
+                        <div class="card-back card-rest">
+                            <div class="card-badge badge-rest">💪 SALUD</div>
+                            <div class="card-desc">Comenzar rutina de gimnasio regular. Mejorar condición física, ganar fuerza y establecer hábito saludable de ejercicio. Invertir en salud a largo plazo.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot dot-rest"></div>
+            </div>
+
+            <!-- 2027 MARKER -->
+            <div class="year-marker">
+                <div class="year-number">2027</div>
+                <div class="year-dot"></div>
+            </div>
+
+            <!-- Evento 4: Inicio trabajo COVAP -->
+            <div class="timeline-item">
+                <div class="timeline-card card-bottom card-work">
+                    <div class="card-inner">
+                        <div class="card-front card-work">
+                            <div class="card-title">Inicio COVAP</div>
+                            <div class="card-date" style="color: #8b5cf6; margin-top: 8px;">1 Ene 2027</div>
+                        </div>
+                        <div class="card-back card-work">
+                            <div class="card-badge badge-work">💼 INICIO LABORAL</div>
+                            <div class="card-desc">Comenzar oficialmente a trabajar en COVAP como empleado de plantilla. Inicio de la carrera profesional tras finalizar estudios y prácticas. Nueva etapa laboral con responsabilidades reales. Empezar a construir fondo de emergencia.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot dot-work"></div>
+            </div>
+
+            <!-- Evento 4.5: Fondo de Emergencia -->
+            <div class="timeline-item">
+                <div class="timeline-card card-top card-studies">
+                    <div class="card-inner">
+                        <div class="card-front card-studies">
+                            <div class="card-title">Fondo Emergencia 💰</div>
+                            <div class="card-date" style="color: #f59e0b; margin-top: 8px;">Completar Dic 2027</div>
+                        </div>
+                        <div class="card-back card-studies">
+                            <div class="card-badge badge-studies">💰 FINANZAS</div>
+                            <div class="card-desc">Completar fondo de emergencia de 6-10 meses de gastos (~6.000-10.000€) ahorrando desde inicio en COVAP. Colchón de seguridad para imprevistos antes de independizarse. Base sólida financiera.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot dot-studies"></div>
+            </div>
+
+            <!-- Evento 5: Vacaciones Agosto 2027 -->
+            <div class="timeline-item">
+                <div class="timeline-card card-bottom card-vacation">
+                    <div class="card-inner">
+                        <div class="card-front card-vacation">
+                            <div class="card-title">Vacaciones</div>
+                            <div class="card-date" style="color: #ec4899; margin-top: 8px;">Agosto 2027</div>
+                        </div>
+                        <div class="card-back card-vacation">
+                            <div class="card-badge badge-vacation">🌴 VACACIONES</div>
+                            <div class="card-desc" style="font-size: 0.75rem;">
+                                <strong>Semana 1 - Islas Canarias:</strong> Hotel 5 estrellas. Descanso pasivo total con desconexión tecnológica completa. Playa, spa y relax absoluto.
+                                <br><br>
+                                <strong>Semana 2 - Descanso Activo:</strong> Tiempo de calidad con amigos, salidas al campo, visitar una ciudad nueva, sesiones de gaming en casa y cocinar comidas especiales.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot dot-vacation"></div>
+            </div>
+
+            <!-- 2028 MARKER -->
+            <div class="year-marker">
+                <div class="year-number">2028</div>
+                <div class="year-dot"></div>
+            </div>
+
+            <!-- Evento 6.5: Independizarse - Alquilar Piso -->
+            <div class="timeline-item">
+                <div class="timeline-card card-top card-rest">
+                    <div class="card-inner">
+                        <div class="card-front card-rest">
+                            <div class="card-title">Piso Propio 🏠</div>
+                            <div class="card-date" style="color: #06b6d4; margin-top: 8px;">1 Enero 2028</div>
+                        </div>
+                        <div class="card-back card-rest">
+                            <div class="card-badge badge-rest">🏠 INDEPENDENCIA</div>
+                            <div class="card-desc">Alquilar primer piso propio junto a mi novia. Independizarse de casa de los padres y comenzar vida en pareja. Nueva etapa de autonomía, responsabilidad y construir un hogar juntos. Empezar hobbies personales.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot dot-rest"></div>
+            </div>
+
+            <!-- Evento 6.7: Empezar Inversiones -->
+            <div class="timeline-item">
+                <div class="timeline-card card-bottom card-studies">
+                    <div class="card-inner">
+                        <div class="card-front card-studies">
+                            <div class="card-title">Inversiones 📈</div>
+                            <div class="card-date" style="color: #f59e0b; margin-top: 8px;">Junio 2028</div>
+                        </div>
+                        <div class="card-back card-studies">
+                            <div class="card-badge badge-studies">📈 INVERSIÓN</div>
+                            <div class="card-desc">Con fondo de emergencia completo y situación estable en el piso, comenzar a invertir. Diversificar en: oro físico, criptomonedas (BTC/ETH), acciones y fondos indexados. Construir patrimonio a largo plazo.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot dot-studies"></div>
+            </div>
+
+            <!-- Evento 6: Japón -->
+            <div class="timeline-item">
+                <div class="timeline-card card-top card-vacation">
+                    <div class="card-inner">
+                        <div class="card-front card-vacation">
+                            <div class="card-title">Japón 🗾</div>
+                            <div class="card-date" style="color: #ec4899; margin-top: 8px;">Primavera 2028</div>
+                        </div>
+                        <div class="card-back card-vacation">
+                            <div class="card-badge badge-vacation">✈️ GRAN VIAJE</div>
+                            <div class="card-desc">Dos semanas completas explorando Japón durante la temporada de sakura (cerezos en flor). Visitar templos, ciudades como Tokio y Kioto, probar la gastronomía auténtica y sumergirse en la cultura japonesa. Época ideal: finales de marzo a principios de abril.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot dot-vacation"></div>
+            </div>
+
+            <!-- 2029 MARKER -->
+            <div class="year-marker">
+                <div class="year-number">2029</div>
+                <div class="year-dot"></div>
+            </div>
+
+            <!-- Evento 7: Comprar Coche -->
+            <div class="timeline-item">
+                <div class="timeline-card card-bottom card-vacation">
+                    <div class="card-inner">
+                        <div class="card-front card-vacation">
+                            <div class="card-title">Comprar Coche 🚗</div>
+                            <div class="card-date" style="color: #ec4899; margin-top: 8px;">Primavera 2029</div>
+                        </div>
+                        <div class="card-back card-vacation">
+                            <div class="card-badge badge-vacation">🚗 INVERSIÓN</div>
+                            <div class="card-desc">Comprar primer coche propio por aproximadamente 5.000€. Un vehículo económico y fiable para tener movilidad independiente, facilitar el trabajo y poder hacer escapadas con mayor libertad.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot dot-vacation"></div>
+            </div>
+
+            <!-- Evento 7.5: Boda -->
+            <div class="timeline-item">
+                <div class="timeline-card card-top card-vacation">
+                    <div class="card-inner">
+                        <div class="card-front card-vacation">
+                            <div class="card-title">Boda 💍</div>
+                            <div class="card-date" style="color: #ec4899; margin-top: 8px;">Octubre 2029</div>
+                        </div>
+                        <div class="card-back card-vacation">
+                            <div class="card-badge badge-vacation">💍 COMPROMISO</div>
+                            <div class="card-desc">Casarse tras más de 1 año viviendo juntos en el piso (desde enero 2028). Formalizar la relación y celebrar con familia y amigos. Siguiente paso natural después de convivencia exitosa.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot dot-vacation"></div>
+            </div>
+
+            <!-- 2030 MARKER -->
+            <div class="year-marker">
+                <div class="year-number">2030</div>
+                <div class="year-dot"></div>
+            </div>
+
+            <!-- Evento 8: Buscar Nuevo Empleo -->
+            <div class="timeline-item">
+                <div class="timeline-card card-bottom card-work">
+                    <div class="card-inner">
+                        <div class="card-front card-work">
+                            <div class="card-title">Nuevo Empleo 💼</div>
+                            <div class="card-date" style="color: #8b5cf6; margin-top: 8px;">Enero 2030</div>
+                        </div>
+                        <div class="card-back card-work">
+                            <div class="card-badge badge-work">💼 CAMBIO PROFESIONAL</div>
+                            <div class="card-desc">Tras 3 años de experiencia en COVAP (2027-2030), buscar un mejor empleo con mayor salario y oportunidades. Opciones: mudarse a ciudad grande (Madrid, Barcelona, Málaga, Córdoba) o conseguir trabajo 100% remoto para mantener flexibilidad geográfica.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot dot-work"></div>
+            </div>
+
+            <!-- 2032 MARKER -->
+            <div class="year-marker">
+                <div class="year-number">2032</div>
+                <div class="year-dot"></div>
+            </div>
+
+            <!-- Evento 9: Reubicación Internacional -->
+            <div class="timeline-item">
+                <div class="timeline-card card-top card-vacation">
+                    <div class="card-inner">
+                        <div class="card-front card-vacation">
+                            <div class="card-title">Reubicación 🌍</div>
+                            <div class="card-date" style="color: #ec4899; margin-top: 8px;">Enero 2032</div>
+                        </div>
+                        <div class="card-back card-vacation">
+                            <div class="card-badge badge-vacation">🌍 CAMBIO GEOGRÁFICO</div>
+                            <div class="card-desc">Buscar oportunidad para mudarse a país con mayor libertad y calidad de vida (como Andorra u otros fuera de OTAN/EU/Agenda 2030). Plan alternativo: mudarse a Asturias si no hay mejor opción internacional. Si no trabajo en remoto, buscar nuevo empleo en el destino elegido.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot dot-vacation"></div>
+            </div>
+
+            <!-- 2033 MARKER -->
+            <div class="year-marker">
+                <div class="year-number">2033</div>
+                <div class="year-dot"></div>
+            </div>
+
+            <!-- Evento 10: Comprar Vivienda -->
+            <div class="timeline-item">
+                <div class="timeline-card card-bottom card-studies">
+                    <div class="card-inner">
+                        <div class="card-front card-studies">
+                            <div class="card-title">Comprar Casa 🏡</div>
+                            <div class="card-date" style="color: #f59e0b; margin-top: 8px;">Finales 2033</div>
+                        </div>
+                        <div class="card-back card-studies">
+                            <div class="card-badge badge-studies">🏡 PATRIMONIO</div>
+                            <div class="card-desc">Comprar vivienda propia con hipoteca. Dejar de alquilar y comenzar a construir patrimonio inmobiliario. Casa o piso según ubicación final (Andorra, Asturias u otro destino). Inversión a largo plazo y hogar definitivo.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-dot dot-studies"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="scroll-hint">
+        ← Arrastra o usa la rueda del ratón para navegar →
+    </div>
+
+    <script>
+        const timeline = document.getElementById('timeline');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        // Prevenir que el hover en las cards afecte el drag
+        const cards = document.querySelectorAll('.timeline-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', (e) => {
+                e.stopPropagation();
+            });
+        });
+
+        // Drag to scroll
+        timeline.addEventListener('mousedown', (e) => {
+            // Solo iniciar drag si no estamos sobre una card
+            if (e.target.closest('.timeline-card')) return;
+            
+            isDown = true;
+            timeline.style.cursor = 'grabbing';
+            startX = e.pageX - timeline.offsetLeft;
+            scrollLeft = timeline.scrollLeft;
+        });
+
+        timeline.addEventListener('mouseleave', () => {
+            isDown = false;
+            timeline.style.cursor = 'grab';
+        });
+
+        timeline.addEventListener('mouseup', () => {
+            isDown = false;
+            timeline.style.cursor = 'grab';
+        });
+
+        timeline.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - timeline.offsetLeft;
+            const walk = (x - startX) * 2;
+            timeline.scrollLeft = scrollLeft - walk;
+        });
+
+        // Auto-scroll inicial al evento activo
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                timeline.scrollLeft = 0;
+                document.querySelector('.scroll-hint').style.display = 'block';
+                setTimeout(() => {
+                    document.querySelector('.scroll-hint').style.opacity = '0';
+                    setTimeout(() => {
+                        document.querySelector('.scroll-hint').style.display = 'none';
+                    }, 500);
+                }, 4000);
+            }, 500);
+        });
+
+        // Ocultar hint al hacer scroll
+        timeline.addEventListener('scroll', () => {
+            document.querySelector('.scroll-hint').style.opacity = '0';
+        });
+    </script>
+
 </body>
 </html>
